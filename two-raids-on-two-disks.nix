@@ -10,14 +10,12 @@
         partitions = [
           {
             name = "boot";
-            type = "partition";
             start = "0";
             end = "1M";
             part-type = "primary";
             flags = [ "bios_grub" ];
           }
           {
-            type = "partition";
             name = "ESP";
             start = "1M";
             end = "1GiB";
@@ -29,7 +27,6 @@
             };
           }
           {
-            type = "partition";
             name = "nixos";
             start = "1GiB";
             end = "100%";
@@ -48,7 +45,6 @@
       format = "gpt";
       partitions = [
         {
-          type = "partition";
           name = "varlib";
           start = "0";
           end = "100%";
