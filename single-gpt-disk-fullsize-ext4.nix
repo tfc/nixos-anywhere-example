@@ -5,40 +5,33 @@ diskDevice:
     device = diskDevice;
     type = "disk";
     content = {
-      type = "table";
-      format = "gpt";
-      partitions = [
-        {
-          name = "boot";
-          start = "0";
-          end = "1M";
-          part-type = "primary";
-          flags = ["bios_grub"];
-        }
-        {
-          name = "ESP";
-          start = "1MiB";
-          end = "100MiB";
-          bootable = true;
+      type = "gpt";
+      partitions = {
+        boot = {
+          priority = 0;
+          size = "1M";
+          type = "EF02";
+        };
+        ESP = {
+          priority = 1;
+          size = "100M";
+          type = "EF00";
           content = {
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
           };
-        }
-        {
-          name = "root";
-          start = "100MiB";
-          end = "100%";
-          part-type = "primary";
-          bootable = true;
+        };
+        root = {
+          priority = 3;
+          size = "100%";
           content = {
             type = "filesystem";
             format = "ext4";
             mountpoint = "/";
           };
-        }
-      ];
+        };
+      };
     };
   };
 }

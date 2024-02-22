@@ -2,7 +2,7 @@
   description = "Example NixOS deployment via NixOS-anywhere";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -97,7 +97,7 @@
 
             services.openssh.enable = true;
 
-            system.stateVersion = "22.11";
+            system.stateVersion = "23.11";
           })
         ];
       };
