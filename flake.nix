@@ -3,27 +3,33 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixos-configs.url = "github:tfc/nixos-configs";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, disko, ... }: {
+  outputs = { self, nixpkgs, disko, nixos-configs, ... }: {
     nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
       modules = [
         ({modulesPath, ... }: {
           imports = [
-            "${modulesPath}/installer/scan/not-detected.nix"
-            "${modulesPath}/profiles/qemu-guest.nix"
+            (modulesPath + "/profiles/qemu-guest.nix")
             disko.nixosModules.disko
+            nixos-configs.nixosModules.user-tfc
+            nixos-configs.nixosModules.remote-deployable
+            nixos-configs.nixosModules.flakes
           ];
 
-          nixpkgs.hostPlatform = "x86_64-linux";
+          nixpkgs.hostPlatform = "aarch64-linux";
           disko.devices = import ./single-gpt-disk-fullsize-ext4.nix "/dev/sda";
           boot.loader.grub = {
             devices = [ "/dev/sda" ];
             efiSupport = true;
             efiInstallAsRemovable = true;
           };
+
+          networking.hostName = "nxbd";
+          networking.domain = "nix-consulting.de";
 
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [
