@@ -11,7 +11,7 @@
   };
 
   outputs = { self, nixpkgs, disko, home-manager, nixos-configs, ... }: {
-    nixosConfigurations.hetzner-cloud = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nxbd = nixpkgs.lib.nixosSystem {
       modules = [
         ({modulesPath, ... }: {
           imports = [
