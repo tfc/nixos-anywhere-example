@@ -86,6 +86,26 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739314552,
+        "narHash": "sha256-ggVf2BclyIW3jexc/uvgsgJH4e2cuG6Nyg54NeXgbFI=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "83bd3a26ac0526ae04fa74df46738bb44b89dcdd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
           "nixos-configs",
           "nixpkgs"
         ]
@@ -109,7 +129,7 @@
         "darwin": "darwin",
         "disko": "disko_2",
         "flake-parts": "flake-parts",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "sysmodule-flake": "sysmodule-flake"
@@ -178,6 +198,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "home-manager": "home-manager",
         "nixos-configs": "nixos-configs",
         "nixpkgs": "nixpkgs_2"
       }
