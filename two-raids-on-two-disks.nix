@@ -1,7 +1,7 @@
 { lib, ... }:
 {
-  disk = lib.genAttrs [ "/dev/nvme0n1" "/dev/nvme1n1" ]
-    (disk: {
+  disk =
+    lib.genAttrs [ "/dev/nvme0n1" "/dev/nvme1n1" ] (disk: {
       type = "disk";
       device = disk;
       content = {
@@ -37,26 +37,27 @@
           }
         ];
       };
-    }) // (lib.genAttrs [ "/dev/sda" "/dev/sdb" ] (disk: {
-    type = "disk";
-    device = disk;
-    content = {
-      type = "table";
-      format = "gpt";
-      partitions = [
-        {
-          name = "varlib";
-          start = "0";
-          end = "100%";
-          part-type = "primary";
-          content = {
-            type = "mdraid";
+    })
+    // (lib.genAttrs [ "/dev/sda" "/dev/sdb" ] (disk: {
+      type = "disk";
+      device = disk;
+      content = {
+        type = "table";
+        format = "gpt";
+        partitions = [
+          {
             name = "varlib";
-          };
-        }
-      ];
-    };
-  }));
+            start = "0";
+            end = "100%";
+            part-type = "primary";
+            content = {
+              type = "mdraid";
+              name = "varlib";
+            };
+          }
+        ];
+      };
+    }));
   mdadm = {
     boot = {
       type = "mdadm";
